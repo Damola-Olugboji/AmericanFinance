@@ -8,7 +8,7 @@ from quantlib.datapoller.equities import Equities
 from quantlib.datapoller.macro import Macro
 
 
-class DataMaster:
+class DataPoller:
     def __init__(
         self,
         config_keys={
@@ -18,8 +18,8 @@ class DataMaster:
             # "phemex": True,
             # "oanda": ("practice", os.getenv("OANDA_ACC"), os.getenv("OANDA_KEY")),
             # "coinbase": False,
-            "polygon": os.get_env("POLYGON_API_KEY"),
-            "fred": os.get_env("FRED_API_KEY"),
+            "polygon": os.getenv("POLYGON_API_KEY"),
+            "fred": os.getenv("FRED_API_KEY"),
             "hyperliquid": (os.getenv("HYP_API_WALLET_ADDR"), os.getenv("HYP_API_WALLET_PRIVATE_KEY")),
         },
     ) -> None:
@@ -41,9 +41,9 @@ class DataMaster:
 
             src_pollers["hyperliquid"] = Hyperliquid(config_keys["hyperliquid"][0], config_keys["hyperliquid"][1])
         if "fred" in config_keys and config_keys["fred"]:
-            from quantlib.wrappers.fred import Fred
+            from quantlib.wrappers.fredwrap import FredWrapper
 
-            src_pollers["fred"] = Fred(config_keys["fred"])
+            src_pollers["fred"] = FredWrapper(config_keys["fred"])
 
         self.crypto = Crypto(pollers=src_pollers, default_src="binance")
         self.equities = Equities(pollers=src_pollers, default_src="polygon")

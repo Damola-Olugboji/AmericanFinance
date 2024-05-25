@@ -1,8 +1,9 @@
-from quantlib.datapoller.master import DataMaster
+from quantlib.datapoller.master import DataPoller
+from pprint import pprint
 
 def main():
-    data_master = DataMaster()
-    start = None
-    end = None
-    granularity = "1d"
-    data_master.crypto.get_ohlcv(ticker = "BTCUSDT", start = start, end = end, granularity = granularity, src = "binance")
+    data_master = DataPoller()
+    data = data_master.macro.get_series(series_id = "GDP")
+    pprint(data)
+
+main()
