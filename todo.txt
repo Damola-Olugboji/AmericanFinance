@@ -1,0 +1,3 @@
+structure DATAMASTER to be able to handle exchange parameters
+create DB to store data
+- poller to update data periodically
